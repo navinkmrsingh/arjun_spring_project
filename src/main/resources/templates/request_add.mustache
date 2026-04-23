@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Request</title>
+</head>
+<body>
+
+<h1>Add New Request</h1>
+
+<form action="/request/add" method="post">
+
+    <label>Student Name:</label>
+    <input type="text" name="studentName" required>
+    <br><br>
+
+    <label>Status:</label>
+    <select name="status">
+        <option value="PENDING">PENDING</option>
+        <option value="ACCEPTED">ACCEPTED</option>
+        <option value="REJECTED">REJECTED</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Add Request</button>
+
+</form>
+
+<br>
+<a href="/request">Back to Requests</a>
+<br><br>
+<a href="/">Back to Home</a>
+
+</body>
+</html>

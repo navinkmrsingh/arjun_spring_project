@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tutors</title>
+  <link href="/css/styles.css?v=3" rel="stylesheet" >
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td, th {
+      border: 1px solid #dddddd;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+      <h1>Tutoring Center Management</h1>
+  </header>
+
+  <div class="container">
+  <div style="text-align: left; margin-bottom: 20px;">
+        <a href="/" class="btn">Back to Home</a>
+      </div>
+    <div class="card">
+      <h3>Tutor Registration</h3>
+      <form action="/tutors" method="post" class="form">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password">
+        </div>
+        <div class="form-group">
+          <label>Experience</label>
+          <input type="text" name="experience">
+        </div>
+        <div class="form-group">
+          <label>Bio</label>
+          <textarea name="bio" cols="" rows=""></textarea>
+        </div>
+        <div class="form-group">
+          <label>Courses</label>
+          {{#course_list}}
+            <div style="margin-bottom: 5px;">
+              <input type="checkbox" name="courseIds" value="{{courseId}}" id="course_{{courseId}}">
+              <label for="course_{{courseId}}" style="display:inline; font-weight:normal;">{{courseCode}}</label>
+            </div>
+          {{/course_list}}
+        </div>
+        <div class="form-group submit-group">
+          <input type="submit" value="Submit" class="btn">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Tutoring Center | ISTE-240 Project | Group 1
+  </footer>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Course</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <h1>Add a New Course</h1>
+</header>
+<div class="container">
+    <form action="/courses/add" method="post">
+        <label>Course Name: <input type="text" name="courseName" required /></label><br><br>
+        <label>Course Code: <input type="text" name="courseCode" required /></label><br><br>
+        <label>Description: <input type="text" name="description" required /></label><br><br>
+        <label>Credits: <input type="number" name="credits" required /></label><br><br>
+        <label>Department: <input type="text" name="department" required /></label><br><br>
+        <label>Tutor Name: <input type="text" name="tutorName" required /></label><br><br>
+        <button type="submit" class="btn">Add Course</button>
+    </form>
+    <br>
+    <a href="/" class="btn">← Back to Home</a>
+</div>
+</body>
+</html>

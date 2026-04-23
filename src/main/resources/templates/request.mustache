@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Requests</title>
+</head>
+<body>
+
+<h1>All Requests</h1>
+
+<table >
+    <tr>
+        <th>ID</th>
+        <th>Student Name</th>
+        <th>Status</th>
+    </tr>
+
+    {{#requests}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{studentName}}</td>
+            <td>{{status}}</td>
+        </tr>
+    {{/requests}}
+
+</table>
+
+<br>
+
+<a href="/request/add">Add New Request</a>
+<br><br>
+<a href="/">Back to Home</a>
+
+</body>
+</html>

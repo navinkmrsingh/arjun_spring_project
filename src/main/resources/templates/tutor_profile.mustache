@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{tutor.name}} - Profile</title>
+  <link href="/css/styles.css?v=3" rel="stylesheet" >
+  <style>
+    .profile-card {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: white;
+        text-align: left;
+    }
+    .profile-header {
+        border-bottom: 2px solid #005A9C;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .profile-header h2 {
+        margin: 0;
+        color: #333;
+    }
+    .profile-detail {
+        margin-bottom: 15px;
+    }
+    .profile-detail strong {
+        display: inline-block;
+        width: 150px;
+        color: #555;
+    }
+    .courses-list {
+        margin-top: 10px;
+        padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+      <h1>Tutoring Center Management</h1>
+  </header>
+
+  <div class="container">
+      <div style="text-align: left; margin-bottom: 20px;">
+        <a href="/tutors" class="btn">Back to Tutors</a>
+      </div>
+
+      {{#tutor}}
+      <div class="profile-card">
+          <div class="profile-header">
+              <h2>{{name}}'s Profile</h2>
+          </div>
+
+          <div class="profile-detail">
+              <strong>Tutor ID:</strong> {{id}}
+          </div>
+          <div class="profile-detail">
+              <strong>Email:</strong> {{email}}
+          </div>
+          <div class="profile-detail">
+              <strong>Experience:</strong> {{experience}} years
+          </div>
+          <div class="profile-detail">
+              <strong>Biography:</strong>
+              <div style="margin-left: 154px; margin-top: -24px; color: #444;">{{bio}}</div>
+          </div>
+
+          <div class="profile-detail">
+              <strong>Assigned Courses:</strong>
+              <div style="margin-left: 154px; margin-top: -24px;">
+                  {{#courses_taught.empty}}
+                  <p style="color: #777; font-style: italic; margin-top: 0;">No courses assigned currently.</p>
+                  {{/courses_taught.empty}}
+
+                  {{^courses_taught.empty}}
+                  <ul class="courses-list" style="margin-top: 0; padding-left: 15px;">
+                      {{#courses_taught}}
+                          <li>{{courseName}} ({{courseCode}}) - {{credits}} Credits</li>
+                      {{/courses_taught}}
+                  </ul>
+                  {{/courses_taught.empty}}
+              </div>
+          </div>
+      </div>
+      {{/tutor}}
+
+      {{^tutor}}
+      <div class="card">
+          <h3>Tutor Not Found</h3>
+          <p>The requested tutor profile could not be located.</p>
+      </div>
+      {{/tutor}}
+  </div>
+
+  <footer>
+    &copy; 2026 Tutoring Center | ISTE-240 Project | Group 1
+  </footer>
+</body>
+</html>
