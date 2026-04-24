@@ -1,3 +1,10 @@
+/**  
+ * Arjun Gupta
+ * UID: 415003018
+ * Entity: Tutor
+ * ISTE 240 - Group 1
+*/
+
 const API_URL = '/api/tutors';
 const tutorModal = new bootstrap.Modal(document.getElementById('tutorModal'));
 

@@ -1,3 +1,10 @@
+/**  
+ * Arjun Gupta
+ * UID: 415003018
+ * Entity: Tutor
+ * ISTE 240 - Group 1
+*/
+
 package group1.tutoringcenter.controllers;
 
 import group1.tutoringcenter.models.Tutor;
