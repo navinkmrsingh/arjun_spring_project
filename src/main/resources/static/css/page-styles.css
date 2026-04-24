@@ -1,0 +1,36 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+    background-color: #000000;
+    color: #F76902;
+    padding: 20px 0;
+    border-bottom: 5px solid #F76902;
+    text-align: center;
+}
+
+.container {
+    margin-top: 30px;
+    max-width: 1200px;
+}
+
+.table-responsive, .custom-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.action-btns button {
+    margin-right: 5px;
+}
+
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1055;
+}
