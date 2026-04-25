@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -69,6 +70,14 @@ public class TutorService {
     }
 
     public Tutor addTutor(Tutor tutor) {
+        // Fetch managed Course entities from DB
+        if (tutor.getCourses_taught() != null) {
+            List<Course> managedCourses = new ArrayList<>(tutor.getCourses_taught().stream()
+                .map(c -> courseService.getCourseById(c.getCourseId()).orElse(null))
+                .filter(c -> c != null)
+                .toList());
+            tutor.setCourses_taught(managedCourses);
+        }
         return tutorRepository.save(tutor);
     }
 
@@ -83,6 +92,18 @@ public class TutorService {
             }
             t.setExperience(tutor.getExperience());
             t.setBio(tutor.getBio());
+            
+            // Update Many-to-Many relationship with managed entities
+            if (tutor.getCourses_taught() != null) {
+                List<Course> managedCourses = new ArrayList<>(tutor.getCourses_taught().stream()
+                    .map(c -> courseService.getCourseById(c.getCourseId()).orElse(null))
+                    .filter(c -> c != null)
+                    .toList());
+                t.setCourses_taught(managedCourses);
+            } else {
+                t.setCourses_taught(new ArrayList<>());
+            }
+            
             return tutorRepository.save(t);
         }
         return null;

@@ -5,15 +5,49 @@
  * ISTE 240 - Group 1
 */
 
+// Load courses on page load
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/courses');
+        if (!response.ok) throw new Error("Failed to load courses");
+        const courses = await response.json();
+        
+        const container = document.getElementById('courseCheckboxes');
+        container.innerHTML = '';
+        
+        if (courses.length === 0) {
+            container.innerHTML = '<div class="text-muted small">No courses available.</div>';
+            return;
+        }
+
+        courses.forEach(course => {
+            const div = document.createElement('div');
+            div.className = 'form-check';
+            div.innerHTML = `
+                <input class="form-check-input course-checkbox" type="checkbox" value="${course.courseId}" id="course${course.courseId}">
+                <label class="form-check-label small" for="course${course.courseId}">
+                    <strong>${course.courseCode}</strong> - ${course.courseName}
+                </label>
+            `;
+            container.appendChild(div);
+        });
+    } catch (error) {
+        console.error("Error loading courses:", error);
+    }
+});
+
 document.getElementById('addTutorForm').addEventListener('submit', async function (e) {
     e.preventDefault();
+
+    const selectedCourseIds = Array.from(document.querySelectorAll('.course-checkbox:checked')).map(cb => ({ courseId: parseInt(cb.value) }));
 
     const tutorData = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         password: document.getElementById('password').value,
         experience: document.getElementById('experience').value,
-        bio: document.getElementById('bio').value
+        bio: document.getElementById('bio').value,
+        courses_taught: selectedCourseIds
     };
 
     try {

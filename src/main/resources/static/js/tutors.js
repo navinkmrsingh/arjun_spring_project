@@ -47,11 +47,15 @@ function renderTable(tutors) {
     tbody.innerHTML = '';
 
     if (tutors.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-center">No tutors found.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center">No tutors found.</td></tr>`;
         return;
     }
 
     tutors.forEach(tutor => {
+        const coursesList = (tutor.courses_taught && tutor.courses_taught.length > 0) 
+            ? tutor.courses_taught.map(c => `<span class="badge bg-info text-dark me-1">${c.courseCode}</span>`).join('') 
+            : '<span class="text-muted small">None</span>';
+            
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${tutor.id}</td>
@@ -59,6 +63,7 @@ function renderTable(tutors) {
             <td>${tutor.email}</td>
             <td>${tutor.experience}</td>
             <td>${tutor.bio || '-'}</td>
+            <td>${coursesList}</td>
             <td class="action-btns">
                 <button class="btn btn-sm btn-outline-primary" onclick="openEditModal(${tutor.id})">
                     <i class="fas fa-edit"></i> Edit
@@ -72,12 +77,44 @@ function renderTable(tutors) {
     });
 }
 
+async function loadCoursesForSelection(selectedCourseIds = []) {
+    try {
+        const response = await fetch('/api/courses');
+        if (!response.ok) throw new Error("Failed to load courses");
+        const courses = await response.json();
+        
+        const container = document.getElementById('courseCheckboxes');
+        container.innerHTML = '';
+        
+        if (courses.length === 0) {
+            container.innerHTML = '<div class="text-muted small">No courses available.</div>';
+            return;
+        }
+
+        courses.forEach(course => {
+            const isChecked = selectedCourseIds.includes(course.courseId);
+            const div = document.createElement('div');
+            div.className = 'form-check';
+            div.innerHTML = `
+                <input class="form-check-input course-checkbox" type="checkbox" value="${course.courseId}" id="course${course.courseId}" ${isChecked ? 'checked' : ''}>
+                <label class="form-check-label small" for="course${course.courseId}">
+                    <strong>${course.courseCode}</strong> - ${course.courseName}
+                </label>
+            `;
+            container.appendChild(div);
+        });
+    } catch (error) {
+        console.error("Error loading courses:", error);
+    }
+}
+
 function openAddModal() {
     document.getElementById('tutorForm').reset();
     document.getElementById('tutorId').value = '';
     document.getElementById('tutorModalLabel').textContent = 'Add New Tutor';
     document.getElementById('password').required = true;
     document.getElementById('passwordHelp').style.display = 'none';
+    loadCoursesForSelection();
     tutorModal.show();
 }
 
@@ -96,6 +133,9 @@ async function openEditModal(id) {
         document.getElementById('experience').value = tutor.experience;
         document.getElementById('bio').value = tutor.bio;
 
+        const selectedIds = tutor.courses_taught ? tutor.courses_taught.map(c => c.courseId) : [];
+        loadCoursesForSelection(selectedIds);
+
         document.getElementById('tutorModalLabel').textContent = 'Edit Tutor';
         tutorModal.show();
     } catch (error) {
@@ -109,12 +149,15 @@ async function saveTutor(e) {
     const id = document.getElementById('tutorId').value;
     const isEdit = id !== '';
 
+    const selectedCourseIds = Array.from(document.querySelectorAll('.course-checkbox:checked')).map(cb => ({ courseId: parseInt(cb.value) }));
+
     const tutorData = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         password: document.getElementById('password').value,
         experience: document.getElementById('experience').value,
-        bio: document.getElementById('bio').value
+        bio: document.getElementById('bio').value,
+        courses_taught: selectedCourseIds
     };
 
     try {

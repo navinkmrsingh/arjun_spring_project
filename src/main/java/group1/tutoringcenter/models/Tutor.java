@@ -39,7 +39,12 @@ public class Tutor {
     @Column(length = 500)
     private String bio;
 
-    @Transient
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name = "tutor_courses",
+        joinColumns = @JoinColumn(name = "tutor_id"),
+        inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
     private List<Course> courses_taught = new ArrayList<>();
 
     public Tutor() {

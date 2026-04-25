@@ -18,4 +18,11 @@ INSERT IGNORE INTO `courses` (`course_id`, `course_name`, `course_code`, `descri
 (2, 'Calculus I', 'MATH181', 'The course covers functions, limits, continuity, the derivative, rules of differentiation, applications of the derivative, Riemann sums, definite integrals, and indefinite integrals.', 3, 'Mathematics', 2),
 (3, 'Web and Mobile Development I', 'ISTE140', 'This course provides students with an introduction to internet and web technologies, and to development on Macintosh/UNIX computer platforms. Topics include HTML and CSS, CSS3 features, digital images, web page design and website publishing.', 3, 'Computing', 1);
 
+-- Insert Mappings for Many-to-Many (Tutors <-> Courses)
+INSERT IGNORE INTO `tutor_courses` (`tutor_id`, `course_id`) VALUES
+(1, 1),
+(1, 3),
+(2, 1),
+(2, 2);
+
 

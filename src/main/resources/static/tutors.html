@@ -55,6 +55,7 @@
                         <th>Email</th>
                         <th>Experience</th>
                         <th>Bio</th>
+                        <th>Courses</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -67,7 +68,7 @@
 
     <!-- Add/Edit Modal -->
     <div class="modal fade" id="tutorModal" tabindex="-1" aria-labelledby="tutorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form id="tutorForm">
                     <div class="modal-header">
@@ -75,27 +76,42 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" id="tutorId">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="mb-3" id="passwordWrapper">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password">
-                            <small class="text-muted" id="passwordHelp">Leave blank to keep existing password.</small>
-                        </div>
-                        <div class="mb-3">
-                            <label for="experience" class="form-label">Experience (Years)</label>
-                            <input type="number" class="form-control" id="experience" required min="0">
-                        </div>
-                        <div class="mb-3">
-                            <label for="bio" class="form-label">Bio / Subjects</label>
-                            <textarea class="form-control" id="bio" rows="3"></textarea>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="hidden" id="tutorId">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3" id="passwordWrapper">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password">
+                                    <small class="text-muted" id="passwordHelp">Leave blank to keep existing
+                                        password.</small>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="experience" class="form-label">Experience (Years)</label>
+                                    <input type="number" class="form-control" id="experience" required min="0">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="bio" class="form-label">Bio / Subjects</label>
+                                    <textarea class="form-control" id="bio" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Assigned Courses</label>
+                                    <div id="courseCheckboxes" class="border rounded p-3"
+                                        style="max-height: 200px; overflow-y: auto; background-color: #f8f9fa;">
+                                        <!-- Courses will be loaded here -->
+                                        <div class="text-muted small">Loading courses...</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
